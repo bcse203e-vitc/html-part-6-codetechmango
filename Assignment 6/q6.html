@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <title>Username Validation</title>
+</head>
+<body>
+  <h2>Username Validation Form</h2>
+
+  <form id="userForm">
+    <label for="username">Username:</label>
+    <input type="text" id="username"><br>
+    <span id="error" style="color:red; display:none;">
+      Username must be 3 to 16 characters (letters, numbers, underscores only)
+    </span><br><br>
+
+    <button type="submit">Submit</button>
+  </form>
+
+  <script>
+    const username = document.getElementById("username");
+    const error = document.getElementById("error");
+    const form = document.getElementById("userForm");
+
+    const regex = /^[a-zA-Z0-9_]{3,16}$/;
+
+    form.addEventListener("submit", function(e) {
+      if (!regex.test(username.value)) {
+        e.preventDefault(); 
+        error.style.display = "inline";
+      } else {
+        error.style.display = "none";
+        alert("Form submitted successfully!");
+      }
+    });
+  </script>
+</body>
+</html>

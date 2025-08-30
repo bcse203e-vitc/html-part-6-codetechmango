@@ -1,1 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  <title>Registration Form</title>
+</head>
+<body>
+  <h2>Registration Form</h2>
+  <form id="regForm">
+    
+  
+    <label for="name">Name:</label>
+    <input type="text" id="name"><br>
+    <span id="nameError" style="color:red;display:none;">Name cannot be empty</span><br><br>
 
+   
+    <label for="email">Email:</label>
+    <input type="text" id="email"><br>
+    <span id="emailError" style="color:red;display:none;">Enter a valid email</span><br><br>
+
+    
+    <label for="password">Password:</label>
+    <input type="password" id="password"><br>
+    <span id="passError" style="color:red;display:none;">
+      Password must be 8+ chars, 1 uppercase, 1 number
+    </span><br><br>
+
+   
+    <button type="submit" id="submitBtn" disabled>Submit</button>
+  </form>
+
+  <script>
+    const nameField = document.getElementById("name");
+    const emailField = document.getElementById("email");
+    const passField = document.getElementById("password");
+    const submitBtn = document.getElementById("submitBtn");
+
+    const nameError = document.getElementById("nameError");
+    const emailError = document.getElementById("emailError");
+    const passError = document.getElementById("passError");
+
+   
+    function validateName() {
+      if (nameField.value.trim() === "") {
+        nameError.style.display = "inline";
+        return false;
+      } else {
+        nameError.style.display = "none";
+        return true;
+      }
+    }
+
+ 
+    function validateEmail() {
+      const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!regex.test(emailField.value)) {
+        emailError.style.display = "inline";
+        return false;
+      } else {
+        emailError.style.display = "none";
+        return true;
+      }
+    }
+
+   
+    function validatePassword() {
+      const regex = /^(?=.*[A-Z])(?=.*\d).{8,}$/;
+      if (!regex.test(passField.value)) {
+        passError.style.display = "inline";
+        return false;
+      } else {
+        passError.style.display = "none";
+        return true;
+      }
+    }
+
+    
+    function checkForm() {
+      if (validateName() && validateEmail() && validatePassword()) {
+        submitBtn.disabled = false;
+      } else {
+        submitBtn.disabled = true;
+      }
+    }
+
+ 
+    nameField.addEventListener("blur", () => { validateName(); checkForm(); });
+    emailField.addEventListener("blur", () => { validateEmail(); checkForm(); });
+    passField.addEventListener("blur", () => { validatePassword(); checkForm(); });
+
+    nameField.addEventListener("input", checkForm);
+    emailField.addEventListener("input", checkForm);
+    passField.addEventListener("input", checkForm);
+
+   
+    document.getElementById("regForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      alert("Form submitted successfully!");
+    });
+  </script>
+</body>
+</html>

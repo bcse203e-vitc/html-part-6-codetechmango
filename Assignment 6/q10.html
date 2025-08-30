@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Simple Dynamic Form Builder</title>
+</head>
+<body>
+  <h2>Dynamic Form Builder</h2>
+
+  <label for="fieldType">Choose Input Type:</label>
+  <select id="fieldType">
+    <option value="text">Text</option>
+    <option value="email">Email</option>
+    <option value="password">Password</option>
+  </select>
+  <button type="button" onclick="addField()">Add</button>
+
+  <form id="dynamicForm">
+    <button type="submit">Submit</button>
+  </form>
+
+  <script>
+    const form = document.getElementById("dynamicForm");
+
+    
+    const validators = {
+      text: /^[A-Za-z\s]{3,}$/,               
+      email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,   
+      password: /^(?=.*[A-Z])(?=.*\d).{8,}$/ 
+    };
+
+    function addField() {
+      const type = document.getElementById("fieldType").value;
+      const input = document.createElement("input");
+      input.type = type;
+      input.placeholder = "Enter " + type;
+      input.setAttribute("data-type", type);
+
+      form.insertBefore(input, form.lastElementChild);
+    }
+
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+      let valid = true;
+      const inputs = form.querySelectorAll("input[data-type]");
+
+      inputs.forEach(input => {
+        const type = input.getAttribute("data-type");
+        if (!validators[type].test(input.value)) {
+          alert("Invalid " + type + " input: " + input.value);
+          valid = false;
+        }
+      });
+
+      if (valid) {
+        alert("Form submitted successfully!");
+      }
+    });
+  </script>
+</body>
+</html>

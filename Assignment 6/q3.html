@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Phone Validation</title>
+</head>
+<body>
+  <h2>Phone Number Validation</h2>
+  
+  <form>
+    <label for="phone">Enter Phone:</label>
+    <input type="text" id="phone" placeholder="(123) 456-7890 or 123-456-7890"><br>
+    <span id="message"></span>
+  </form>
+
+  <script>
+    const phoneField = document.getElementById("phone");
+    const message = document.getElementById("message");
+
+  
+    const regex = /^(\(\d{3}\)\s?\d{3}-\d{4}|\d{3}-\d{3}-\d{4})$/;
+
+    phoneField.addEventListener("input", function() {
+      if (regex.test(phoneField.value)) {
+        message.style.color = "green";
+        message.textContent = "Valid Phone number";
+      } else {
+        message.style.color = "red";
+        message.textContent = "Invalid Phone number";
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Dynamic Hobbies Form</title>
+</head>
+<body>
+  <h2>Hobbies Form</h2>
+
+  <form id="hobbyForm">
+    <div id="hobbyContainer">
+      <input type="text" name="hobby" placeholder="Enter hobby" oninput="validateHobby(this)">
+      <span style="color:red; display:none;">Invalid (only letters allowed)</span>
+    </div>
+    <br>
+    <button type="button" onclick="addHobby()">Add Hobby</button>
+    <br><br>
+    <button type="submit">Submit</button>
+  </form>
+
+  <script>
+    function validateHobby(input) {
+      const regex = /^[A-Za-z\s]+$/;
+      const errorMsg = input.nextElementSibling;
+
+      if (regex.test(input.value) || input.value === "") {
+        errorMsg.style.display = "none";
+      } else {
+        errorMsg.style.display = "inline";
+      }
+    }
+
+    function addHobby() {
+      const container = document.getElementById("hobbyContainer");
+      const div = document.createElement("div");
+
+      div.innerHTML = `
+        <input type="text" name="hobby" placeholder="Enter hobby" oninput="validateHobby(this)">
+        <span style="color:red; display:none;">Invalid (only letters allowed)</span>
+      `;
+      container.appendChild(div);
+    }
+
+    document.getElementById("hobbyForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      alert("Form submitted successfully!");
+    });
+  </script>
+</body>
+</html>

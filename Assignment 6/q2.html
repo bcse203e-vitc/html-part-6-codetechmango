@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  <title>Email Validation</title>
+</head>
+<body>
+  <h2>Email Validation Form</h2>
+  
+  <form>
+    <label for="email">Enter Email:</label>
+    <input type="text" id="email" onblur="validateEmail()"><br>
+    <span id="message"></span>
+  </form>
+
+  <script>
+    function validateEmail() {
+      const email = document.getElementById("email").value;
+      const message = document.getElementById("message");
+      const regex = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+
+      if (regex.test(email)) {
+        message.style.color = "green";
+        message.textContent = "Valid Email ✔";
+      } else {
+        message.style.color = "red";
+        message.textContent = "Invalid Email ❌";
+      }
+    }
+  </script>
+</body>
+</html>
